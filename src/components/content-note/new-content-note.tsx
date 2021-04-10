@@ -59,6 +59,9 @@ const NewContentNote = ({ day }: NewContentNoteProps) => {
 		})
 
 		setIsLoading(false)
+		setTitle('')
+		setEditorState(EditorState.createEmpty())
+		setSelectedChannel('youtube')
 		onClose()
 	}
 
