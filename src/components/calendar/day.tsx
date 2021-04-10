@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Box, Stack, Flex } from '@chakra-ui/react'
-import { isToday, isSameMonth, isPast } from 'date-fns'
+import { isToday, isSameMonth } from 'date-fns'
 import NewContentNote from '../content-note/new-content-note'
 import ContentNote from '../content-note/content-note'
 import useSWR from 'swr'
@@ -15,14 +15,6 @@ interface DayProps {
 const Day = ({ day, month, date }: DayProps) => {
 	const { data } = useSWR(['/api/content-note', day.toISOString()], fetcher, { refreshInterval: 1000 })
 
-	const dayColor = (): any => {
-		if (isSameMonth(day, month)) {
-			return isPast(day) ? 'gray.500' : 'black'
-		} else {
-			return 'gray.400'
-		}
-	}
-
 	return (
 		<Box
 			padding={1}
@@ -34,7 +26,7 @@ const Day = ({ day, month, date }: DayProps) => {
 			overflowY="scroll"
 			backgroundColor={isToday(day) ? 'teal.50' : 'white'}>
 			<Flex alignItems="center" justifyContent="space-between" marginBottom={2}>
-				<Text color={dayColor} fontWeight={isToday(day) ? '700' : '500'}>
+				<Text color={isSameMonth(day, month) ? 'black' : 'gray.400'} fontWeight={isToday(day) ? '700' : '500'}>
 					{date}
 				</Text>
 				<NewContentNote day={day} />
