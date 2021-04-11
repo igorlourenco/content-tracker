@@ -11,6 +11,8 @@ interface CalendarHeaderProps {
 const CalendarHeader = ({ currentDate, setCurrentDate }: CalendarHeaderProps) => {
 	const dateFormat = 'MMMM yyyy'
 
+	console.log(currentDate)
+
 	const previousMonth = () => {
 		setCurrentDate(subMonths(currentDate, 1))
 	}
