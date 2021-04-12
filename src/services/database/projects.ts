@@ -12,5 +12,5 @@ export async function getByUser (userId: string) {
 	const db = await connectToDatabase()
 	const collection = db.collection('projects')
 
-	return await collection.find({ userId }).sort({ sentAt: -1 }).toArray()
+	return await collection.find({ userId }).sort({ createdAt: -1 }).toArray()
 }

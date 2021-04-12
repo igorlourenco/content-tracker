@@ -3,4 +3,5 @@ export interface IProject {
 	userId: string
 	name: string
 	slug: string
+	createdAt: Date
 }

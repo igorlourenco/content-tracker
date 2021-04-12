@@ -1,19 +1,24 @@
 import { extendTheme } from '@chakra-ui/react'
 
-const colors = {
-  brand: {
-    900: '#1a365d',
-    800: '#153e75',
-    700: '#2a69ac'
-  }
-}
-
 const fonts = {
-  heading: '\'Lato\', sans-serif',
-  body: '\'Lato\', sans-serif',
-  mono: '\'Menlo\', monospace'
+	heading: '\'Montserrat\', sans-serif',
+	body: '\'Montserrat\', sans-serif',
+	mono: '\'Menlo\', monospace'
 }
 
-const theme = extendTheme({ colors, fonts })
+const styles = {
+	global: {
+		'html, body': {
+			color: 'gray.800',
+			lineHeight: 'tall'
+		},
+		input: {
+			color: 'gray.700',
+			fontWeight: 600
+		}
+	}
+}
+
+const theme = extendTheme({ fonts, styles })
 
 export default theme

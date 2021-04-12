@@ -1,48 +1,24 @@
-import React, { useState } from 'react'
-import { Heading, Text, Link, Input, Button, Stack } from '@chakra-ui/react'
-import { generateId } from '../utils/helpers'
+import React from 'react'
+import { Box, Stack } from '@chakra-ui/react'
 import Authenticated from '../components/auth/authenticated'
 import useSWR from 'swr'
+import ProjectsBoard from '../components/dashboard/projects-board'
+import FirstProject from '../components/dashboard/first-project'
 
 const Dashboard = () => {
-	const [name, setName] = useState('')
 	const { data } = useSWR('/api/project')
 
-	const newProject = async () => {
-		const unformattedSlug = name + ' ' + generateId(6)
-		const removeSpaces = unformattedSlug.replaceAll(' ', '-')
-		const slug = removeSpaces.toLowerCase()
-
-		await fetch('/api/project', {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ name, slug })
-		})
-	}
+	if (!data) return <h1>carregando</h1>
 
 	return (
 		<Authenticated>
-			<Stack>
-				{data && data.projects && data.projects.map(project => (
-					<Link isExternal key={project._id} href={`/board/${project.slug}`}>
-						{project.name}
-					</Link>
-				))}
-			</Stack>
-			<Stack spacing={4}>
-				<Heading>Seus projetos</Heading>
-				<Stack>
-					<Stack>
-						<Text>Nome do projeto</Text>
-						<Input value={name} onChange={(event) => setName(event.target.value)} type="text" />
-					</Stack>
-					<Button onClick={newProject}> novo projeto </Button>
-
+			<Box width="100vw" minHeight="100vh" paddingY={12} display="flex" justifyContent="center" alignItems="center">
+				<Stack spacing={8} width="60vw" shadow="lg" borderRadius="2xl" padding={5}>
+					{data.projects && data.projects.length && data.projects.length > 1
+						? <ProjectsBoard projects={data.projects} />
+						: <FirstProject />}
 				</Stack>
-			</Stack>
+			</Box>
 		</Authenticated>
 	)
 }

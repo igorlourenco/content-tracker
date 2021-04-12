@@ -19,7 +19,7 @@ export async function getByDate (startDate: string, finalDate: string, project: 
 			$lt: finalDate
 		},
 		project
-	}).sort({ sentAt: -1 }).toArray()
+	}).sort({ date: -1 }).toArray()
 }
 
 export async function update (contentNote: IContentNote) {

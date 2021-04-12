@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		params: { slug: project.slug }
 	}))
 
-	return { paths, fallback: false }
+	return { paths, fallback: true }
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		props: {
 			project
 		},
-		revalidate: 10
+		revalidate: 1
 	}
 }
 
