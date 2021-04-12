@@ -1,8 +1,9 @@
 import React from 'react'
-import { Flex, IconButton, Heading, Box } from '@chakra-ui/react'
+import { Flex, Heading, Box } from '@chakra-ui/react'
 import { addMonths, subMonths } from 'date-fns'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import { capitalize, formatDate } from '../../utils/helpers'
+import { IconButton } from '../custom'
 
 interface CalendarHeaderProps {
 	currentDate: Date
@@ -23,18 +24,16 @@ const CalendarHeader = ({ currentDate, setCurrentDate }: CalendarHeaderProps) =>
 		<Flex alignItems="center" justifyContent="space-between">
 			<IconButton
 				aria-label="Voltar ao mês anterior"
-				icon={<Box color="teal.800" as={AiOutlineArrowLeft} />}
+				customIcon={AiOutlineArrowLeft}
 				variant="ghost"
-				colorScheme="teal"
 				onClick={previousMonth} />
 
-			<Heading color="teal.800">{capitalize(formatDate(currentDate, dateFormat))}</Heading>
+			<Heading color="purple.800">{capitalize(formatDate(currentDate, dateFormat))}</Heading>
 
 			<IconButton
 				aria-label="Ir para o próximo mês"
-				icon={<Box color="teal.800" as={AiOutlineArrowRight} />}
+				customIcon={AiOutlineArrowRight}
 				variant="ghost"
-				colorScheme="teal"
 				onClick={nextMonth} />
 		</Flex>
 	)

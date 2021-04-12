@@ -14,7 +14,7 @@ const DaysOfWeek = ({ currentDate }: DaysOfWeekProps) => {
 
 	for (let i = 0; i < 7; i++) {
 		days.push(
-			<Text width="100%" key={i} textAlign="center" fontWeight="700" color="teal.500">
+			<Text width="100%" key={i} textAlign="center" fontWeight="700" color="purple.500">
 				{capitalize(formatDate(addDays(startDate, i), dateFormat))}
 			</Text >
 		)
