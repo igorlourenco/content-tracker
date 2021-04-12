@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-	Input,
 	Stack,
 	Flex,
 	Text,
@@ -11,11 +10,10 @@ import {
 	DrawerOverlay,
 	DrawerContent,
 	DrawerCloseButton,
-	IconButton,
 	RadioGroup,
 	Radio,
 	Divider,
-	Button, useDisclosure, Box
+	useDisclosure, Box
 } from '@chakra-ui/react'
 import { format } from 'date-fns'
 import { Editor, EditorState, convertToRaw } from 'draft-js'
@@ -28,6 +26,7 @@ import {
 	RICH_BLOCK_STYLES,
 	RICH_INLINE_STYLES
 } from '../../utils/draft-js'
+import { Button, Input, IconButton } from '../custom'
 
 interface NewContentNoteProps {
 	day: Date
@@ -70,10 +69,9 @@ const NewContentNote = ({ day, project }: NewContentNoteProps) => {
 		<>
 			<IconButton
 				aria-label="Novo conteúdo"
-				icon={<Box color="teal.900" as={AiOutlinePlus} />}
 				size="md"
+				customIcon={AiOutlinePlus}
 				variant="ghost"
-				colorScheme="teal"
 				onClick={onOpen}
 			/>
 			<Drawer onClose={onClose} isOpen={isOpen} size="xl">
@@ -88,17 +86,14 @@ const NewContentNote = ({ day, project }: NewContentNoteProps) => {
 								</Box>
 								<Box>
 									<Input
-										backgroundColor="teal.50"
 										placeholder="Título"
 										type="text"
-										fontWeight="600"
-										border={0}
 										value={title}
 										onChange={(event) => setTitle(event.target.value)}
 									/>
 								</Box>
 								<Box>
-									<RadioGroup colorScheme="teal" value={selectedChannel}>
+									<RadioGroup colorScheme="purple" value={selectedChannel}>
 										<Flex gridColumnGap={5}>
 											{channels.map(channel => (
 												<Radio
@@ -122,7 +117,7 @@ const NewContentNote = ({ day, project }: NewContentNoteProps) => {
 												colorScheme="gray"
 												key={style.action}
 												aria-label={style.label}
-												icon={<Box as={style.icon} />}
+												customIcon={style.icon}
 												onClick={() => onInlineStyle(onEditorChange, editorState, style.action)} />
 										))}
 										{RICH_BLOCK_STYLES.map(style => (
@@ -131,7 +126,7 @@ const NewContentNote = ({ day, project }: NewContentNoteProps) => {
 												colorScheme="gray"
 												key={style.action}
 												aria-label={style.label}
-												icon={<Box as={style.icon} />}
+												customIcon={style.icon}
 												onClick={() => onBlockStyle(onEditorChange, editorState, style.action)} />
 										))}
 									</Flex>
@@ -147,7 +142,9 @@ const NewContentNote = ({ day, project }: NewContentNoteProps) => {
 							<Button variant="ghost" colorScheme="red" mr={3} onClick={onClose}>
 								Cancelar
 							</Button>
-							<Button isLoading={isLoading} colorScheme="teal" onClick={saveContentNote}>Salvar</Button>
+							<Button boxShadow="md" isLoading={isLoading} onClick={saveContentNote}>
+								Salvar
+							</Button>
 						</DrawerFooter>
 					</DrawerContent>
 				</DrawerOverlay>

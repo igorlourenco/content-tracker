@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-	Input,
 	Stack,
 	Flex,
 	Text,
@@ -13,9 +12,7 @@ import {
 	DrawerCloseButton,
 	RadioGroup,
 	Divider,
-	IconButton,
-	Radio,
-	Button, useDisclosure, Box
+	Radio, useDisclosure, Box
 } from '@chakra-ui/react'
 import { Editor, EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import { channels } from '../../api/channels'
@@ -29,6 +26,7 @@ import {
 } from '../../utils/draft-js'
 import { formatDate } from '../../utils/helpers'
 import DeleteContentNote from './delete-content-note'
+import { Button, Input, IconButton } from '../custom'
 
 const ContentNote = ({ _id, date, title, channel, notes }: IContentNote) => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
@@ -73,7 +71,7 @@ const ContentNote = ({ _id, date, title, channel, notes }: IContentNote) => {
 				color={noteChannel.color}
 				style={{
 					cursor: 'pointer',
-					width: '18ch',
+					width: '16ch',
 					whiteSpace: 'nowrap',
 					overflow: 'hidden',
 					textOverflow: 'ellipsis'
@@ -95,14 +93,12 @@ const ContentNote = ({ _id, date, title, channel, notes }: IContentNote) => {
 									<Input
 										value={currentTitle}
 										onChange={(event) => setCurrentTitle(event.target.value)}
-										backgroundColor="gray.100"
 										placeholder="Título"
 										type="text"
-										fontWeight="600"
-										border={0} />
+									/>
 								</Box>
 								<Box>
-									<RadioGroup colorScheme="teal" value={selectedChannel}>
+									<RadioGroup colorScheme="purple" value={selectedChannel}>
 										<Flex gridColumnGap={5}>
 											{channels.map(channel => (
 												<Radio
@@ -126,7 +122,7 @@ const ContentNote = ({ _id, date, title, channel, notes }: IContentNote) => {
 												colorScheme="gray"
 												key={style.action}
 												aria-label={style.label}
-												icon={<Box as={style.icon} />}
+												customIcon={style.icon}
 												onClick={() => onInlineStyle(onEditorChange, editorState, style.action)} />
 										))}
 										{RICH_BLOCK_STYLES.map(style => (
@@ -135,7 +131,7 @@ const ContentNote = ({ _id, date, title, channel, notes }: IContentNote) => {
 												colorScheme="gray"
 												key={style.action}
 												aria-label={style.label}
-												icon={<Box as={style.icon} />}
+												customIcon={style.icon}
 												onClick={() => onBlockStyle(onEditorChange, editorState, style.action)} />
 										))}
 									</Flex>
@@ -157,10 +153,10 @@ const ContentNote = ({ _id, date, title, channel, notes }: IContentNote) => {
 							</Stack>
 
 							<Stack isInline>
-								<Button variant="outline" mr={3} onClick={onClose}>
+								<Button variant="ghost" colorScheme="red" onClick={onClose}>
 									Cancelar
 								</Button>
-								<Button isLoading={isLoading} colorScheme="teal" onClick={updateContentNote}>Salvar</Button>
+								<Button isLoading={isLoading} onClick={updateContentNote}>Salvar</Button>
 							</Stack>
 
 						</DrawerFooter>

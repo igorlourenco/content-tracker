@@ -1,10 +1,11 @@
 import React from 'react'
-import { addDays, startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns'
+import { isToday, addDays, startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns'
 import { Flex, Stack } from '@chakra-ui/react'
 import Day from './day'
 import { formatDate } from '../../utils/helpers'
 import useSWR from 'swr'
 import { contentNotesFetcher } from '../../utils/fetcher'
+import Loading from '../loading'
 
 interface DaysProps {
 	currentDate: Date
@@ -22,7 +23,6 @@ const Days = ({ currentDate, projectSlug }: DaysProps) => {
 	let day = startDate
 	let formattedDate = ''
 	let key = 0
-
 	const { data } = useSWR(['/api/content-note', startDate.toISOString(), endDate.toISOString(), projectSlug], contentNotesFetcher, { refreshInterval: 1000 })
 
 	if (data) {
@@ -33,7 +33,7 @@ const Days = ({ currentDate, projectSlug }: DaysProps) => {
 
 				formattedDate = formatDate(day, dateFormat)
 				days.push(
-					<Day key={i} project={projectSlug} contentNotes={filteredContentNotes} day={day} month={monthStart} date={formattedDate} />
+					<Day className={isToday(day) ? 'today' : 'another-day'} key={i} project={projectSlug} contentNotes={filteredContentNotes} day={day} month={monthStart} date={formattedDate} />
 				)
 				day = addDays(day, 1)
 			}
@@ -55,7 +55,7 @@ const Days = ({ currentDate, projectSlug }: DaysProps) => {
 		return <Stack>{rows}</Stack>
 	}
 
-	return <h1>carregando</h1>
+	return <Loading />
 }
 
 export default Days

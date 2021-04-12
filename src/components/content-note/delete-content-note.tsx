@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-	Button,
 	IconButton,
 	Box,
 	Modal,
@@ -14,6 +13,7 @@ import {
 	IconButtonProps
 } from '@chakra-ui/react'
 import { AiOutlineDelete } from 'react-icons/ai'
+import { Button } from '../custom'
 
 interface DeleteContentNoteProps extends IconButtonProps {
 	id: string
@@ -34,10 +34,11 @@ const DeleteContentNote = ({ id }: DeleteContentNoteProps) => {
 	return (
 		<>
 			<IconButton
-				variant="outline"
+				variant="ghost"
 				colorScheme="red"
+				borderRadius="2xl"
 				aria-label="Deletar Nota de Conteúdo"
-				icon={<Box as={AiOutlineDelete} />}
+				icon={<Box color="red.800" as={AiOutlineDelete} />}
 				onClick={onOpen} />
 			<Modal isOpen={isOpen} onClose={onClose}>
 				<ModalOverlay />
@@ -49,10 +50,12 @@ const DeleteContentNote = ({ id }: DeleteContentNoteProps) => {
 					</ModalBody>
 
 					<ModalFooter>
-						<Button colorScheme="teal" variant="ghost" mr={3} onClick={onClose}>
+						<Button colorScheme="purple" variant="ghost" onClick={onClose}>
 							Fechar
 						</Button>
-						<Button isLoading={isLoading} variant="outline" colorScheme="red" onClick={deleteContentNote}>Sim, quero apagar</Button>
+						<Button isLoading={isLoading} variant="outline" colorScheme="red" onClick={deleteContentNote}>
+							Sim, quero apagar
+						</Button>
 					</ModalFooter>
 				</ModalContent>
 			</Modal>

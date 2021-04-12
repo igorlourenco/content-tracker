@@ -2,7 +2,7 @@ div.DraftEditor-root {
 	height: 250px;
 	overflow-y: auto;
 	border-radius: 0.75rem;
-	background-color: #E6FFFA;
+	background-color: #E9D8FD;
   }
   div.DraftEditor-editorContainer,
   div.public-DraftEditor-content {
@@ -12,6 +12,7 @@ div.DraftEditor-root {
 
   ::-webkit-scrollbar {
 	width: 5px;
+	height: 1px;
   }
   
   /* Track */
@@ -21,10 +22,10 @@ div.DraftEditor-root {
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-	background: #285E61; 
+	background: #553C9A; 
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-	background: #234E52; 
+	background: #6B46C1; 
   }
