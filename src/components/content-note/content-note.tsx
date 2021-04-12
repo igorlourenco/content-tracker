@@ -51,7 +51,7 @@ const ContentNote = ({ _id, date, title, channel, notes }: IContentNote) => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ title, channel: selectedChannel, notes })
+			body: JSON.stringify({ title: currentTitle, channel: selectedChannel, notes })
 		})
 
 		setIsLoading(false)

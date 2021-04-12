@@ -3,18 +3,17 @@ import { Text, Box, Stack, Flex } from '@chakra-ui/react'
 import { isToday, isSameMonth } from 'date-fns'
 import NewContentNote from '../content-note/new-content-note'
 import ContentNote from '../content-note/content-note'
-import useSWR from 'swr'
-import fetcher from '../../utils/fetcher'
+import IContentNote from '../../interfaces/content-note'
 
 interface DayProps {
 	day: Date
 	month: Date
 	date: string
+	project: string
+	contentNotes: IContentNote[]
 }
 
-const Day = ({ day, month, date }: DayProps) => {
-	const { data } = useSWR(['/api/content-note', day.toISOString()], fetcher, { refreshInterval: 1000 })
-
+const Day = ({ day, month, date, project, contentNotes }: DayProps) => {
 	return (
 		<Box
 			padding={1}
@@ -29,11 +28,11 @@ const Day = ({ day, month, date }: DayProps) => {
 				<Text color={isSameMonth(day, month) ? 'black' : 'gray.400'} fontWeight={isToday(day) ? '700' : '500'}>
 					{date}
 				</Text>
-				<NewContentNote day={day} />
+				<NewContentNote project={project} day={day} />
 			</Flex>
 
 			<Stack paddingBottom={2}>
-				{data && data.contentNotes?.map((contentNote, index) => (
+				{contentNotes?.map((contentNote, index) => (
 					<ContentNote key={index} {...contentNote} />
 				))}
 			</Stack>

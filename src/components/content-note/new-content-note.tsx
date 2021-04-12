@@ -31,9 +31,10 @@ import {
 
 interface NewContentNoteProps {
 	day: Date
+	project: string
 }
 
-const NewContentNote = ({ day }: NewContentNoteProps) => {
+const NewContentNote = ({ day, project }: NewContentNoteProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [title, setTitle] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
@@ -55,7 +56,7 @@ const NewContentNote = ({ day }: NewContentNoteProps) => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ title, channel: selectedChannel, notes, date: day.toISOString() })
+			body: JSON.stringify({ title, channel: selectedChannel, notes, date: day.toISOString(), project })
 		})
 
 		setIsLoading(false)

@@ -9,11 +9,17 @@ export async function add (contentNote: IContentNote) {
 	return await collection.insertOne({ ...contentNote })
 }
 
-export async function getByDate (date: string) {
+export async function getByDate (startDate: string, finalDate: string, project: string) {
 	const db = await connectToDatabase()
 	const collection = db.collection('content_notes')
 
-	return await collection.find({ date }).sort({ sentAt: -1 }).toArray()
+	return await collection.find({
+		date: {
+			$gte: startDate,
+			$lt: finalDate
+		},
+		project
+	}).sort({ sentAt: -1 }).toArray()
 }
 
 export async function update (contentNote: IContentNote) {

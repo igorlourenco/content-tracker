@@ -1,19 +1,50 @@
 import React, { useState } from 'react'
-import { Stack } from '@chakra-ui/react'
-import CalendarHeader from '../components/calendar/header'
-import DaysOfWeek from '../components/calendar/days-of-week'
-import Days from '../components/calendar/days'
+import { Heading, Text, Link, Input, Button, Stack } from '@chakra-ui/react'
+import { generateId } from '../utils/helpers'
+import Authenticated from '../components/auth/authenticated'
+import useSWR from 'swr'
 
-const Calendar = () => {
-	const [currentDate, setCurrentDate] = useState(new Date())
+const Dashboard = () => {
+	const [name, setName] = useState('')
+	const { data } = useSWR('/api/project')
+
+	const newProject = async () => {
+		const unformattedSlug = name + ' ' + generateId(6)
+		const removeSpaces = unformattedSlug.replaceAll(' ', '-')
+		const slug = removeSpaces.toLowerCase()
+
+		await fetch('/api/project', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ name, slug })
+		})
+	}
 
 	return (
-		<Stack paddingY={8} paddingX={5}>
-			<CalendarHeader currentDate={currentDate} setCurrentDate={setCurrentDate} />
-			<DaysOfWeek currentDate={currentDate} />
-			<Days currentDate={currentDate} />
-		</Stack>
+		<Authenticated>
+			<Stack>
+				{data && data.projects && data.projects.map(project => (
+					<Link isExternal key={project._id} href={`/board/${project.slug}`}>
+						{project.name}
+					</Link>
+				))}
+			</Stack>
+			<Stack spacing={4}>
+				<Heading>Seus projetos</Heading>
+				<Stack>
+					<Stack>
+						<Text>Nome do projeto</Text>
+						<Input value={name} onChange={(event) => setName(event.target.value)} type="text" />
+					</Stack>
+					<Button onClick={newProject}> novo projeto </Button>
+
+				</Stack>
+			</Stack>
+		</Authenticated>
 	)
 }
 
-export default Calendar
+export default Dashboard

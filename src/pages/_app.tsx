@@ -1,13 +1,16 @@
 import React from 'react'
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
+import { Provider } from 'next-auth/client'
 import theme from '../style/theme'
 import '../style/draft-editor.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<ChakraProvider resetCSS theme={theme}>
-			<Component {...pageProps} />
+			<Provider session={pageProps.session}>
+				<Component {...pageProps} />
+			</Provider>
 		</ChakraProvider>
 	)
 }
