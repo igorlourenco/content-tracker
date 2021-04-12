@@ -20,7 +20,7 @@ const Board = ({ project }: BoardProps) => {
 			<Stack paddingY={8} paddingX={5}>
 				<CalendarHeader currentDate={currentDate} setCurrentDate={setCurrentDate} />
 				<DaysOfWeek currentDate={currentDate} />
-				<Days currentDate={currentDate} projectSlug={project.slug} />
+				<Days currentDate={currentDate} projectSlug={project?.slug} />
 			</Stack>
 		</Authenticated>
 	)
@@ -33,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	const projects = await collection.find({}).sort({ sentAt: -1 }).limit(20).toArray()
 
 	const paths = projects.map((project) => ({
-		params: { slug: project.slug }
+		params: { slug: project?.slug }
 	}))
 
 	return { paths, fallback: true }
@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	const db = await connectToDatabase()
 	const collection = db.collection('projects')
 
-	const project = await collection.findOne({ slug: context.params.slug.toString() })
+	const project = await collection.findOne({ slug: context?.params?.slug.toString() })
 
 	project._id = project._id.toString()
 
