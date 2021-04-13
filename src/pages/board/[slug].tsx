@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Stack } from '@chakra-ui/react'
+import { Stack, Box } from '@chakra-ui/react'
 import CalendarHeader from '../../components/calendar/header'
 import DaysOfWeek from '../../components/calendar/days-of-week'
 import Days from '../../components/calendar/days'
@@ -17,9 +17,11 @@ const Board = ({ project }: BoardProps) => {
 
 	return (
 		<Authenticated>
-			<Stack paddingY={8} paddingX={5}>
-				<CalendarHeader currentDate={currentDate} setCurrentDate={setCurrentDate} />
-				<DaysOfWeek currentDate={currentDate} />
+			<Stack paddingY={4} paddingX={5}>
+				<Box position="sticky" paddingY={4} backgroundColor="white" top="0">
+					<CalendarHeader currentDate={currentDate} setCurrentDate={setCurrentDate} />
+					<DaysOfWeek currentDate={currentDate} />
+				</Box>
 				<Days currentDate={currentDate} projectSlug={project?.slug} />
 			</Stack>
 		</Authenticated>

@@ -25,7 +25,8 @@ const Day = ({ day, month, date, project, contentNotes, ...props }: DayProps) =>
 			shadow={isToday(day) ? 'md' : 'sm'}
 			_hover={{ shadow: 'md' }}
 			overflowY="scroll"
-			backgroundColor={isToday(day) ? 'purple.100' : 'white'}
+			overflowX="hidden"
+			backgroundColor={isToday(day) ? 'purple.50' : 'white'}
 			{...props}
 		>
 			<Flex alignItems="center" justifyContent="space-between" marginBottom={2}>

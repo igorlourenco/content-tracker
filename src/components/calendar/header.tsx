@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Heading, Box } from '@chakra-ui/react'
+import { Flex, Heading } from '@chakra-ui/react'
 import { addMonths, subMonths } from 'date-fns'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import { capitalize, formatDate } from '../../utils/helpers'
