@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Stack } from '@chakra-ui/react'
+import { Box, Flex, Stack } from '@chakra-ui/react'
 import Authenticated from '../components/auth/authenticated'
 import useSWR from 'swr'
 import ProjectsBoard from '../components/dashboard/projects-board'
@@ -16,11 +16,20 @@ const Dashboard = () => {
 	return (
 		<Authenticated>
 			<Box width="100vw" minHeight="100vh" paddingY={12} display="flex" justifyContent="center" alignItems="center">
-				<Stack spacing={8} width="60vw" shadow="lg" borderRadius="2xl" padding={5}>
-					{data.projects && data.projects.length && data.projects.length >= 1
-						? <ProjectsBoard projects={data.projects} />
-						: <FirstProject />}
-				</Stack>
+
+				{data.projects && data.projects.length && data.projects.length >= 1
+					? (
+						<Flex justifyContent="space-between">
+							<>
+								<ProjectsBoard projects={data.projects} />
+							</>
+							<>
+								<ProjectsBoard projects={data.projects} />
+							</>
+						</Flex>
+					)
+					: <FirstProject />}
+
 			</Box>
 		</Authenticated>
 	)

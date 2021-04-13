@@ -66,7 +66,7 @@ const ContentNote = ({ _id, date, title, channel, notes }: IContentNote) => {
 				_hover={{ shadow: 'md' }}
 				onClick={onOpen}
 				paddingX={2}
-				borderRadius="sm"
+				borderRadius="lg"
 				backgroundColor={noteChannel.backgroundColor}
 				color={noteChannel.color}
 				style={{
