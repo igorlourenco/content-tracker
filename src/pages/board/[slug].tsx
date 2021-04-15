@@ -22,7 +22,7 @@ const Board = ({ project }: BoardProps) => {
 					<CalendarHeader currentDate={currentDate} setCurrentDate={setCurrentDate} />
 					<DaysOfWeek currentDate={currentDate} />
 				</Box>
-				<Days currentDate={currentDate} projectSlug={project?.slug} />
+				<Days currentDate={currentDate} projectId={project?._id} />
 			</Stack>
 		</Authenticated>
 	)

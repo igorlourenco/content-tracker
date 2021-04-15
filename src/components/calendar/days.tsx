@@ -9,10 +9,10 @@ import Loading from '../loading'
 
 interface DaysProps {
 	currentDate: Date
-	projectSlug: string
+	projectId: string
 }
 
-const Days = ({ currentDate, projectSlug }: DaysProps) => {
+const Days = ({ currentDate, projectId }: DaysProps) => {
 	const monthStart = startOfMonth(currentDate)
 	const monthEnd = endOfMonth(monthStart)
 	const startDate = startOfWeek(monthStart)
@@ -23,7 +23,7 @@ const Days = ({ currentDate, projectSlug }: DaysProps) => {
 	let day = startDate
 	let formattedDate = ''
 	let key = 0
-	const { data } = useSWR(['/api/content-note', startDate.toISOString(), endDate.toISOString(), projectSlug], contentNotesFetcher, { refreshInterval: 1000 })
+	const { data } = useSWR(['/api/content-note', startDate.toISOString(), endDate.toISOString(), projectId], contentNotesFetcher, { refreshInterval: 1000 })
 
 	if (data) {
 		while (day <= endDate) {
@@ -33,7 +33,7 @@ const Days = ({ currentDate, projectSlug }: DaysProps) => {
 
 				formattedDate = formatDate(day, dateFormat)
 				days.push(
-					<Day className={isToday(day) ? 'today' : 'another-day'} key={i} project={projectSlug} contentNotes={filteredContentNotes} day={day} month={monthStart} date={formattedDate} />
+					<Day className={isToday(day) ? 'today' : 'another-day'} key={i} project={projectId} contentNotes={filteredContentNotes} day={day} month={monthStart} date={formattedDate} />
 				)
 				day = addDays(day, 1)
 			}

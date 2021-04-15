@@ -5,13 +5,11 @@ import {
 	Heading,
 	Stack,
 	Icon,
-	Link,
 	SimpleGrid,
 	Text,
 	Box,
 	Image
 } from '@chakra-ui/react'; import { signIn, providers, useSession } from 'next-auth/client'
-import Loading from '../components/loading'
 import { Button } from '../components/custom'
 import { useRouter } from 'next/router'
 import { CgExternal } from 'react-icons/cg'
@@ -56,15 +54,14 @@ const App = ({ authProviders }: any) => {
 	const [session, loading] = useSession()
 	const googleProvider: AuthProvider = Object.values(authProviders).find((provider: AuthProvider) => provider.id === 'google')
 
-	if (typeof window !== 'undefined' && loading) return <Loading />
+	if (typeof window !== 'undefined' && loading) return null
 
 	return (
 		<>
-			<Flex paddingY={3} shadow="md" paddingX={6} alignItems="center" justifyContent="space-between">
+			<Flex as="header" paddingY={3} shadow="md" paddingX={6} alignItems="center" justifyContent="space-between">
 				<Heading
 					fontFamily="Rammetto One"
-					fontWeight={600}
-					lineHeight={'110%'}>
+					fontWeight={600}>
 					mySoci
 					<Text as={'span'}
 						bgGradient="linear(to-l, purple.600,purple.400)"
@@ -73,16 +70,6 @@ const App = ({ authProviders }: any) => {
 						all
 					</Text>
 				</Heading>
-				{!session && googleProvider && (
-					<Button leftIcon={<Box as={IoCalendarSharp} />} boxShadow="lg" onClick={() => signIn(googleProvider.id)} px={6}>
-						Quero começar agora!
-					</Button>
-				)}
-				{session &&
-					<Link href="/dashboard" fontWeight="700" color="purple.700">
-						veja seus sociall
-					</Link>
-				}
 			</Flex>
 			<Container maxW={'5xl'}>
 				<Stack
@@ -98,16 +85,13 @@ const App = ({ authProviders }: any) => {
 						<Text as={'span'}
 							bgGradient="linear(to-l, purple.600,purple.400)"
 							bgClip="text"
-							fontSize="6xl"
 							fontWeight="extrabold" >
 							fácil e organizada
 						</Text>
 					</Heading>
 					<Text color={'gray.700'} maxW={'3xl'}>
 						Organize seus conteúdos. Tenha em um quadro só todo o seu calendário
-						de postagens, no Instagram, YouTube e outras plataformas. Com o
-						<Text as={'span'} color="purple.700">{' '}mySociall</Text>, você
-						organiza suas publicações da melhor forma para gerar mais engajamento.
+						de postagens, no Instagram, YouTube e outras plataformas.
 					</Text>
 					<Stack spacing={6} direction={'row'}>
 						{!session && googleProvider && (

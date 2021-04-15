@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Flex, Stack } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import Authenticated from '../components/auth/authenticated'
 import useSWR from 'swr'
 import ProjectsBoard from '../components/dashboard/projects-board'
@@ -19,14 +19,7 @@ const Dashboard = () => {
 
 				{data.projects && data.projects.length && data.projects.length >= 1
 					? (
-						<Flex justifyContent="space-between">
-							<>
-								<ProjectsBoard projects={data.projects} />
-							</>
-							<>
-								<ProjectsBoard projects={data.projects} />
-							</>
-						</Flex>
+						<ProjectsBoard projects={data.projects} />
 					)
 					: <FirstProject />}
 
